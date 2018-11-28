@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Index</title>
+		<link href="/public/style.css" rel="stylesheet">
+		<script src="http://localhost:3000/socket.io/socket.io.js"></script>
+	</head>
+	<body>
+	<span>Create room</span>
+	<form action="/room" method="post">
+		<span>Room name:</span>
+		<input name="roomname" type="text" id="roomname">
+		<span>User:</span>
+		<input name="user" type="text" id="user">
+	  <span>Source:</span>
+		<input name="source" type="text" id="source">
+		<input type="submit" id="send" value="Send">
+	</form>
+	
+	<div id="log"></div><br>
+	<input type="text" id="input" autofocus><input type="submit" id="send" value="Send">
+	
+	</body>
+	<script src = "/public/create.js"></script>
+</html>

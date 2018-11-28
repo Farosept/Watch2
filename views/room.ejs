@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Room</title>
+		<link href="/public/style.css" rel="stylesheet">
+		<script src="http://2f931334.ngrok.io/socket.io/socket.io.js"></script>
+		<script src="/public/room.js"></script>
+	</head>
+	<body>
+<script>
+
+</script>
+	<a href="javascript:play()">Play</a>
+	<a href="javascript:pause()">Pause</a>
+	<iframe id="video" class="embed-responsive-item" src="<%=source %>" frameborder="0" scrolling="no" allowfullscreen=""></iframe>		
+		<input id="rng" type="range" value="0" max="100" step="1">
+		<div id="log"></div><br>
+		<input type="text" id="input" autofocus><input type="submit" id="send" value="Send">
+	</body>
+</html>
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	crossorigin="anonymous"></script>
+	<script src="/public/jquery.iframetracker.js"></script>
+
+<script>
+var stop = false;
+
+function onPlayerTimeUpdate(player_time) {
+//	console.log(player_time);
+
+  }
+
+  function mwPlayerMessageReceive(event) {
+    if (event.data) {
+		if(event.data.event == "inited"){
+			init();
+		}
+		if(event.data.event == "rewound"){
+			rew(event.data.time);
+		}
+		if(event.data.event == "paused"){
+			pause();
+		}
+		if(event.data.event == "resumed"){
+			play();
+		}
+      onPlayerTimeUpdate(event.data);
+    }
+  }
+
+  $(function() {
+    if (window.addEventListener) {
+      window.addEventListener('message', mwPlayerMessageReceive);
+    } else {
+      window.attachEvent('onmessage', mwPlayerMessageReceive);
+    }
+  });
+</script>
