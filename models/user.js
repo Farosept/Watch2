@@ -15,9 +15,10 @@ class Users {
         return user;
       }
     getUser(id){
-        this.users.find((user)=>{
-           return user.id === id;
+        var user = this.users.find((user)=>{
+           return user.id == id;
         });
+        return user;
     }
     getUserList (room) {
         var users = this.users.filter((user) => user.room === room); // ищем всех юзеров в определенной комнате
@@ -29,6 +30,13 @@ class Users {
         var users = this.users.filter((user) => user.room === room); // ищем всех юзеров в определенной комнате
         var host = users.filter((user)=>user.host == true);
         return host[0];
+    }
+    addSource(id, source){
+        this.user = this.users.forEach(user => {
+            if(user.id == id){
+                user.source = source;
+            }
+        });
     }
 }
 

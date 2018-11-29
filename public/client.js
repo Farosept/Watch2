@@ -30,13 +30,16 @@ function mwPlayerMessageReceive(event) {
         }
     }
 }
+document.getElementById("button-addon-send").addEventListener("click",()=>{
+    socket.emit('addVideo', { source: document.getElementById("source").value});
+})
 //Подключение
 socket.on('connect', function () {
-        document.getElementById("send").addEventListener("click", () => {
-        let name = document.getElementById("user");
-        let room = document.getElementById("room");
-        document.getElementById("video").src = document.getElementById("source").value;
-        let params = { name: name.value, room: room.value, source: document.getElementById("source").value };
+        var urlParams = new URLSearchParams(window.location.search);
+        let r = Math.random().toString(36).substring(7);
+        let name = r;
+        let room = urlParams.get('id');
+        let params = { name: name, room: room };
         socket.emit('join', params, function (err) {
             if (err) {
                 alert(err);
@@ -46,7 +49,6 @@ socket.on('connect', function () {
                 console.log('ok');
             }
         });
-    });
 });
 //Сообщение в логе
 socket.on('newMessage', function (msg) {
@@ -54,6 +56,7 @@ socket.on('newMessage', function (msg) {
 });
 socket.on('source', function (msg) {
     document.getElementById("video").src = msg;
+    $('.collapse').collapse()
 });
 //Управление плеером
 socket.on('control', (msg) => {

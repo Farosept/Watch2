@@ -4,21 +4,49 @@
 		<meta charset="utf-8">
 		<title>Index</title>
 		<link href="/public/style.css" rel="stylesheet">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	</head>
 	<body>
-		<span>Room name:</span>
-		<input name="room" type="text" id="room" value="123">
-		<span>User:</span>
-		<input name="user" type="text" id="user" value="qwe">
-		<span>Source:</span>
-		<input name="source" type="text" id="source">
-		<input type="submit" id="send" value="Send">
-		<div id="log"></div>
-		<a href="javascript:play()">Play</a>
-		<a href="javascript:pause()">Pause</a>
-		<iframe id="video" class="embed-responsive-item" src="" frameborder="0" scrolling="no" allowfullscreen=""></iframe>		
+	<header>
+	<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light border">
+			<a class="navbar-brand" href="#">Watch2Gender</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+			  <span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+			  <div class="navbar-nav">
+			  </div>
+			</div>
+</header>
+	<div class="container h-100">
+		<div class="row h-100 justify-content-center align-items-center">
+			<div class="col-6">
+				<div class="card text-center">
+					<div class="card-header">
+						Создайте комнату
+					</div>
+					<form action="/room" method="GET">
+						<div class="card-body">
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<span class="input-group-text" id="inputGroup-sizing-default">Название комнаты</span>
+								</div>
+								<input name="id" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+							</div>
+							
+							<input type="submit" class="btn btn-primary" value="Создать комнату"/>
+						</div>
+					</form>
+					<div class="card-footer text-muted">
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	</body>
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-	<script src="/socket.io/socket.io.js"></script>
-	<script src = "/public/client.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </html>

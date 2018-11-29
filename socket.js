@@ -11,12 +11,13 @@ module.exports = (server) => {
             const numClients = (typeof clients !== 'undefined') ? Object.keys(clients.sockets).length : 0;
             users.removeUser(socket.id);
             if(numClients == 0){
-                console.log("create")
-                users.addUser(socket.id, params.room, params.name, params.source, true);
+                users.addUser(socket.id, params.room, params.name, null, true);
             }else{
-                console.log(users.getHostInRoom(params.room).source)
+                let host = users.getHostInRoom(params.room);
                 users.addUser(socket.id, params.room, params.name, null, false);
-                socket.emit('source', users.getHostInRoom(params.room).source);
+                if(host.source!=null){
+                    socket.emit('source', host.source);
+                }
             }
             socket.join(params.room);
             
@@ -24,6 +25,11 @@ module.exports = (server) => {
             socket.emit('newMessage', '<<Вы подключены к комнате: '+params.room+' >>');
             socket.broadcast.to(params.room).emit('newMessage',`<<Присоединился новый пользователь>> - ${params.name}`);
             callback();
+        });
+        socket.on("addVideo",(message)=>{
+            users.addSource(socket.id, message.source);
+            var user = users.getUser(socket.id);
+            io.to(user.room).emit('source',message.source);
         });
         socket.on('createMessage', (message, callback) => {
             var user = users.getUser(socket.id);
