@@ -1,7 +1,5 @@
-var socket = io(),
-    stop = false,
-    iframe = $('iframe')[0].contentWindow;
-
+var iframe = $('iframe')[0].contentWindow,
+    stop = false;
 $(function () {
     if (window.addEventListener) {
         window.addEventListener('message', mwPlayerMessageReceive);
@@ -11,6 +9,7 @@ $(function () {
 });
 
 function mwPlayerMessageReceive(event) {
+    console.log(event.data)
     if (event.data) {
         if (event.data.event == "inited") {
             socket.emit("control", escape("init"));
@@ -33,27 +32,7 @@ function mwPlayerMessageReceive(event) {
 document.getElementById("button-addon-send").addEventListener("click",()=>{
     socket.emit('addVideo', { source: document.getElementById("source").value});
 })
-//Подключение
-socket.on('connect', function () {
-        var urlParams = new URLSearchParams(window.location.search);
-        let r = Math.random().toString(36).substring(7);
-        let name = r;
-        let room = urlParams.get('id');
-        let params = { name: name, room: room };
-        socket.emit('join', params, function (err) {
-            if (err) {
-                alert(err);
-                window.location.href = '/';
-            }
-            else {
-                console.log('ok');
-            }
-        });
-});
-//Сообщение в логе
-socket.on('newMessage', function (msg) {
-    document.getElementById("log").innerHTML += msg + '<br/>';
-});
+
 socket.on('source', function (msg) {
     document.getElementById("video").src = msg;
     $('.collapse').collapse()
@@ -70,5 +49,3 @@ socket.on('control', (msg) => {
         iframe.postMessage({ method: 'play' }, '*');
     }
 });
-
-
